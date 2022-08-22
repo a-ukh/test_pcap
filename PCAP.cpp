@@ -26,12 +26,9 @@ PCAPReader::PCAPReader(const std::string& fileName) : _fileName(fileName), _pack
 	std::ifstream pcap_file(_fileName, std::ios::binary);
 	if (pcap_file.is_open())
 	{
-		//uint32_t magic_number{};
-		//pcap_file.read((char*)&magic_number, sizeof(uint32_t));
-
+		//read global header
 		pcap_hdr_t global_header{};
 		pcap_file.read(reinterpret_cast<char*>(&global_header), sizeof(pcap_hdr_t));
-		std::cout << global_header.magic_number << std::endl;
 		
 		while (!pcap_file.eof())
 		{
